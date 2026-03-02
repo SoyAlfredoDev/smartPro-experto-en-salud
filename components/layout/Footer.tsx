@@ -45,17 +45,17 @@ const Footer = () => {
   const socialLinks = [
     {
       icon: Facebook,
-      href: "https://www.facebook.com/desdetu7.cl",
+      href: "https://www.facebook.com/people/Expertoensaludcl/61581320792311/",
       label: "Facebook",
     },
     {
       icon: X,
-      href: "https://x.com/desdetu7",
+      href: "",
       label: "X",
     },
     {
       icon: Instagram,
-      href: "https://www.instagram.com/desdetu7.cl",
+      href: "https://www.instagram.com/expertoensalud.cl/",
       label: "Instagram",
     },
   ];
