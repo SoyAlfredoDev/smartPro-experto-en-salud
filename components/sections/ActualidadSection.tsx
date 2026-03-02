@@ -41,7 +41,7 @@ const news: NewsItem[] = [
 
 export default function ActualidadSection() {
   return (
-    <section className="relative w-full bg-white">
+    <section className="relative w-full bg-white" id="actualidad">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         {/* Header */}
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">

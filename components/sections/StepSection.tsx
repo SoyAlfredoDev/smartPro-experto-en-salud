@@ -24,7 +24,7 @@ const steps = [
 
 export default function StepsSection() {
   return (
-    <section className="bg-[color:var(--light_gray)] py-16">
+    <section className="bg-[color:var(--light_gray)] py-16" id="contactos">
       <div className="mx-auto max-w-6xl px-6">
         {/* Title */}
         <h2 className="mb-12 text-center text-3xl font-extrabold tracking-wide text-[color:var(--primary)] md:text-4xl">

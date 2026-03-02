@@ -19,22 +19,22 @@ export function Navbar() {
         </Link>
         <div className="hidden md:flex gap-6 items-center font-medium">
           <Link
-            href="#servicios"
+            href="#cotizador"
             className="text-secondary hover:text-primary transition-colors"
           >
-            Servicios
+            Cotizador
           </Link>
           <Link
-            href="#agendar"
+            href="#contactos"
             className="text-secondary hover:text-primary transition-colors"
           >
-            Agendar
+            Contactos
           </Link>
           <Link
-            href="#contacto"
+            href="#actualidad"
             className="text-secondary hover:text-primary transition-colors"
           >
-            Contacto
+            Actualidad
           </Link>
           <Link href="#agendar">
             <Button variant="primary">Agendar cita</Button>
