@@ -165,10 +165,10 @@ const Footer = () => {
               <li className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2 md:gap-3 group">
                 <Mail className="w-5 h-5 text-primary shrink-0 group-hover:scale-110 transition-transform" />
                 <a
-                  href="mailto:Contacto@desdetu7.cl"
+                  href="mailto:Contacto@expertoensalud.cl"
                   className="hover:text-primary transition-colors duration-200"
                 >
-                  contacto@desdetu7.cl
+                  contacto@expertoensalud.cl
                 </a>
               </li>
             </ul>
