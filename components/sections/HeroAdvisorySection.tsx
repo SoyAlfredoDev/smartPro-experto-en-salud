@@ -31,7 +31,7 @@ export function HeroAdvisorySection() {
                     lg:text-4xl
                   "
                 >
-                  ¿ASESORÍA PROFESIONAL?
+                  Asesoría en Isapres en Chile
                 </h1>
               </div>
 
@@ -42,11 +42,12 @@ export function HeroAdvisorySection() {
                 className="
                   max-w-xl text-white/95
                   text-sm sm:text-base lg:text-lg
-                  drop-shadow
+                  drop-shadow font-medium
                 "
               >
-                Te ayudamos a elegir el mejor plan de salud con una asesoría
-                clara, rápida y 100% personalizada.
+                Te ayudamos a elegir, comparar y cambiar a la mejor Isapre de
+                Chile. Asegura tu tranquilidad con una asesoría 100%
+                personalizada.
               </p>
 
               {/* CTAs */}
