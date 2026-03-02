@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   Mail,
   Phone,
@@ -66,7 +67,13 @@ const Footer = () => {
           {/* Columna 1: Marca y Descripción */}
           <div className="space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
             <h3 className="text-3xl font-bold text-text-main tracking-wide">
-              DesdeTu7.cl
+              <Image
+                src="/images/logo-experto-en-salud.png"
+                alt="Logo SmartPro"
+                width={200}
+                height={200}
+                style={{ marginTop: "-30px", marginBottom: "-20px" }}
+              />
             </h3>
             <p className="text-sm leading-relaxed text-text-muted md:pr-4">
               Optimizamos tu elección de salud. Plataforma para encontrar y
@@ -199,7 +206,8 @@ const Footer = () => {
         {/* Barra inferior: Copyright, Creador y Legales */}
         <div className="mt-16 pt-8 border-t border-gray-200 flex flex-col lg:flex-row justify-between items-center gap-6 text-xs font-medium text-text-muted">
           <p className="text-center lg:text-left">
-            &copy; {currentYear} Desde Tu 7. Todos los derechos reservados.
+            &copy; {currentYear} Experto en Salud. Todos los derechos
+            reservados.
           </p>
 
           {/* Sección de Isapres Premium */}

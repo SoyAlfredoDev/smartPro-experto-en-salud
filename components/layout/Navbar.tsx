@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "../ui/Button";
-import { HeartPulse } from "lucide-react";
+import Image from "next/image";
 
 export function Navbar() {
   return (
@@ -10,8 +10,12 @@ export function Navbar() {
           href="/"
           className="flex items-center gap-2 text-2xl font-bold tracking-tighter text-primary"
         >
-          <HeartPulse className="h-8 w-8 text-accent" />
-          Experto en Salud
+          <Image
+            src="/images/logo-experto-en-salud.png"
+            alt="Logo SmartPro"
+            width={140}
+            height={140}
+          />
         </Link>
         <div className="hidden md:flex gap-6 items-center font-medium">
           <Link

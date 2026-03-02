@@ -4,6 +4,7 @@ import CotizadorSection from "@/components/sections/CotizadorSection";
 import { HeroAdvisorySection } from "@/components/sections/HeroAdvisorySection";
 import StepsSection from "@/components/sections/StepSection";
 import CalendlySection from "@/components/sections/CalendlySection";
+import ActualidadSection from "@/components/sections/ActualidadSection";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <CotizadorSection />
         <StepsSection />
         <CalendlySection />
+        <ActualidadSection />
       </main>
       <Footer />
     </>
