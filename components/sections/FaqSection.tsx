@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { HelpCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 const faqs = [
   {
@@ -24,6 +27,25 @@ const faqs = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
 export function FaqSection() {
   const faqSchema = {
     "@context": "https://schema.org",
@@ -45,7 +67,13 @@ export function FaqSection() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-2xl lg:text-center"
+        >
           <h2 className="text-3xl font-extrabold tracking-tight text-[color:var(--primary)] sm:text-4xl">
             Preguntas Frecuentes sobre Isapres
           </h2>
@@ -53,21 +81,30 @@ export function FaqSection() {
             Resolvemos tus dudas principales sobre el proceso de cotización y
             cambio de Isapre en Chile.
           </p>
-        </div>
-        <div className="mx-auto mt-12 max-w-3xl space-y-6">
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mx-auto mt-12 max-w-3xl space-y-6"
+        >
           {faqs.map((faq, index) => (
-            <div
+            <motion.div
               key={index}
-              className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+              variants={itemVariants}
+              whileHover={{ y: -4, scale: 1.01 }}
+              className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[color:var(--accent)]/30"
             >
               <h3 className="flex items-start text-lg font-medium text-[color:var(--secondary)]">
                 <HelpCircle className="mr-3 mt-1 h-5 w-5 flex-shrink-0 text-[color:var(--accent)]" />
                 {faq.question}
               </h3>
               <p className="mt-4 text-base text-gray-600 pl-8">{faq.answer}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

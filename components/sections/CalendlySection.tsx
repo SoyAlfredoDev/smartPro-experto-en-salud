@@ -1,9 +1,23 @@
+"use client";
 // CalendlySection.tsx
 import Image from "next/image";
+import { PopupButton } from "react-calendly";
+import { useEffect, useState } from "react";
 
 export default function CalendlySection() {
+  const linkCalendly = process.env.NEXT_PUBLIC_LINK_CALENDLY;
+  // Estado para asegurar que Calendly solo se renderice en el cliente (evita errores de hidratación en Next.js)
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
-    <section className="relative w-full overflow-hidden bg-[color:var(--secondary)]">
+    <section
+      className="relative w-full overflow-hidden bg-[color:var(--secondary)]"
+      id="solicitar-video"
+    >
       <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black/20 to-transparent" />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
@@ -39,19 +53,14 @@ export default function CalendlySection() {
             </p>
 
             <div className="mt-8">
-              <a
-                href="#agendar"
-                className="
-                  inline-flex items-center justify-center rounded-full
-                  bg-[color:var(--accent)] px-8 py-4
-                  text-base font-semibold text-white
-                  shadow-xl transition
-                  hover:brightness-95
-                  focus:outline-none focus:ring-4 focus:ring-[color:var(--accent)]/35
-                "
-              >
-                Solicitar Asesoría Gratuita
-              </a>
+              {isClient && (
+                <PopupButton
+                  url={linkCalendly}
+                  rootElement={document.body}
+                  text="HORARIOS DISPONIBLES"
+                  className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]/60"
+                />
+              )}
             </div>
           </div>
 
@@ -70,7 +79,7 @@ export default function CalendlySection() {
                 alt="Videollamada por Zoom"
                 fill
                 priority
-                className="object-cover"
+                className="object-cover "
                 sizes="(min-width: 1024px) 640px, 100vw"
               />
 

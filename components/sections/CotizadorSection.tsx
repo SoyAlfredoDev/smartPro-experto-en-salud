@@ -249,6 +249,9 @@ const Cotizador = () => {
     rentaImponible: string;
     comentarios: string;
     tipo_contacto: string;
+    TO_EMAIL: string;
+    FROM_NAME: string;
+    FROM_EMAIL: string;
   }
 
   const initialFormData: FormData = {
@@ -265,6 +268,9 @@ const Cotizador = () => {
     rentaImponible: "",
     comentarios: "",
     tipo_contacto: "",
+    TO_EMAIL: "contacto@expertoensalud.cl",
+    FROM_NAME: "Experto en Salud",
+    FROM_EMAIL: "contacto@expertoensalud.cl",
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -334,7 +340,13 @@ const Cotizador = () => {
         {/* Layout: en desktop/med el card va a la derecha */}
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Columna izquierda (espacio / texto opcional) */}
-          <div className="hidden lg:block">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="hidden lg:block"
+          >
             <h2 className="text-4xl font-extrabold tracking-wide text-white lg:text-5xl">
               Cotiza en minutos
             </h2>
@@ -347,13 +359,13 @@ const Cotizador = () => {
               <li>• Respuesta rápida</li>
               <li>• Asesoría sin costo</li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Columna derecha: Form */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="lg:justify-self-end w-full"
           >

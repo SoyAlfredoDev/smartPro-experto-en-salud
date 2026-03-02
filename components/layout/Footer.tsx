@@ -8,7 +8,6 @@ import {
   Phone,
   MapPin,
   Facebook,
-  Twitter,
   Instagram,
   TrendingUp,
   X,
@@ -229,9 +228,11 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="hover:opacity-80 transition-opacity mt-2 sm:mt-0"
             >
-              <img
+              <Image
                 src="/images/logo-smartpro.png"
                 alt="Logo SmartPro"
+                width={150}
+                height={28}
                 className="h-7 w-auto object-contain"
               />
             </a>

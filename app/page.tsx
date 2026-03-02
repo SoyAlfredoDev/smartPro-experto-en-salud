@@ -22,8 +22,8 @@ export default function Home() {
         <CotizadorSection />
         <StepsSection />
         <CalendlySection />
-        <FaqSection />
         <ActualidadSection />
+        <FaqSection />
       </main>
       <Footer />
     </>

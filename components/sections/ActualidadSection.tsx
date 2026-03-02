@@ -1,5 +1,8 @@
 // ActualidadSection.tsx
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 type NewsItem = {
   title: string;
@@ -39,12 +42,37 @@ const news: NewsItem[] = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
 export default function ActualidadSection() {
   return (
     <section className="relative w-full bg-white" id="actualidad">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"
+        >
           <div className="relative">
             <div className="absolute -left-4 top-2 hidden h-24 w-[2px] bg-slate-200 lg:block" />
             <h2 className="text-5xl font-extrabold tracking-wide text-[color:var(--primary)] sm:text-6xl">
@@ -56,21 +84,29 @@ export default function ActualidadSection() {
             Revisa noticias, cambios regulatorios y oportunidades para optimizar
             tu plan de salud.
           </p>
-        </div>
+        </motion.div>
 
         {/* Grid */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        >
           {news.map((item, idx) => (
-            <a
+            <motion.a
               key={idx}
+              variants={itemVariants}
+              whileHover={{ y: -6 }}
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
               className="
                 group block
                 rounded-2xl
-                transition
-                hover:-translate-y-1 hover:shadow-xl
+                transition-all duration-300
+                hover:shadow-xl
                 focus:outline-none focus:ring-4 focus:ring-[color:var(--accent)]/20
               "
             >
@@ -79,30 +115,30 @@ export default function ActualidadSection() {
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-cover transition duration-500 group-hover:scale-105"
+                  className="object-cover transition duration-700 ease-out group-hover:scale-105"
                   sizes="(min-width: 1024px) 260px, (min-width: 640px) 50vw, 100vw"
                 />
-                <div className="absolute inset-0 bg-black/0 transition group-hover:bg-black/10" />
+                <div className="absolute inset-0 bg-black/0 transition duration-300 group-hover:bg-black/10" />
               </div>
 
               <div className="px-1 pt-4">
-                <div className="text-sm font-semibold text-slate-800 group-hover:text-[color:var(--primary)]">
+                <div className="text-sm font-semibold text-slate-800 transition-colors group-hover:text-[color:var(--primary)]">
                   {item.title}
                 </div>
-                <div className="mt-1 text-sm text-slate-500">
+                <div className="mt-1 text-sm text-slate-500 line-clamp-3">
                   {item.description}
                 </div>
 
-                <div className="mt-3 h-1 w-10 rounded-full bg-[color:var(--accent)] opacity-80" />
+                <div className="mt-4 h-1 w-10 rounded-full bg-[color:var(--accent)] opacity-80 transition-all duration-300 group-hover:w-16 group-hover:opacity-100" />
               </div>
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
 
         <div className="absolute left-6 top-1/2 hidden -translate-y-1/2 flex-col gap-3 lg:flex">
+          <span className="h-2 w-2 rounded-full bg-slate-200" />
           <span className="h-2 w-2 rounded-full bg-slate-300" />
-          <span className="h-2 w-2 rounded-full bg-slate-300" />
-          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="h-2 w-2 rounded-full bg-slate-200" />
         </div>
       </div>
     </section>
