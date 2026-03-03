@@ -42,7 +42,10 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1], // <- reemplaza "easeOut" (string) por cubic-bezier (tipado)
+    },
   },
 };
 
@@ -93,7 +96,6 @@ export function FaqSection() {
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
               whileHover={{ y: -4, scale: 1.01 }}
               className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[color:var(--accent)]/30"
             >
