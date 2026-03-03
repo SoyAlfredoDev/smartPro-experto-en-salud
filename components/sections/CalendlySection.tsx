@@ -55,7 +55,7 @@ export default function CalendlySection() {
             <div className="mt-8">
               {isClient && (
                 <PopupButton
-                  url={linkCalendly}
+                  url={linkCalendly || ""}
                   rootElement={document.body}
                   text="HORARIOS DISPONIBLES"
                   className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]/60"

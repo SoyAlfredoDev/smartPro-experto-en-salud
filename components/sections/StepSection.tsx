@@ -74,7 +74,6 @@ export default function StepsSection() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              variants={cardVariants}
               whileHover={{ y: -8 }}
               className="group overflow-hidden rounded-2xl bg-white shadow-md transition-shadow hover:shadow-xl"
             >

@@ -97,7 +97,6 @@ export default function ActualidadSection() {
           {news.map((item, idx) => (
             <motion.a
               key={idx}
-              variants={itemVariants}
               whileHover={{ y: -6 }}
               href={item.href}
               target="_blank"
