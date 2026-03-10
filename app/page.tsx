@@ -6,6 +6,7 @@ import StepsSection from "@/components/sections/StepSection";
 import CalendlySection from "@/components/sections/CalendlySection";
 import ActualidadSection from "@/components/sections/ActualidadSection";
 import { FaqSection } from "@/components/sections/FaqSection";
+import LogosIsapresSection from "@/components/sections/LogosIsapresSection";
 import {
   LocalBusinessSchema,
   OrganizationSchema,
@@ -22,6 +23,7 @@ export default function Home() {
         <CotizadorSection />
         <StepsSection />
         <CalendlySection />
+        <LogosIsapresSection />
         <ActualidadSection />
         <FaqSection />
       </main>

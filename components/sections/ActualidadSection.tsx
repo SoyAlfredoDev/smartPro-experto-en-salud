@@ -17,7 +17,7 @@ const news: NewsItem[] = [
     description:
       "Revisa quiénes pueden recibir devolución de excedentes y cómo aprovechar este beneficio para optimizar tu plan de salud.",
     href: "https://elpais.com/chile/2025-01-31/cuando-y-como-se-pagan-la-devolucion-de-los-excedentes-de-las-isapres-en-chile.html",
-    image: "/images/contact-phone.jpg",
+    image: "/images/news-01.avif",
   },
   {
     title: "Superintendencia corrige cobros del GES y beneficia a afiliados",
@@ -31,14 +31,14 @@ const news: NewsItem[] = [
     description:
       "Infórmate sobre los próximos reajustes y evalúa alternativas antes de que el alza impacte tu presupuesto mensual.",
     href: "https://www.biobiochile.cl/noticias/economia/tu-bolsillo/2025/08/27/gobierno-recuerda-proximo-reajuste-al-precio-base-de-planes-de-salud-dos-isapres-quedaron-fuera.shtml",
-    image: "/images/actualidad-3.jpg",
+    image: "/images/news-03.webp",
   },
   {
     title: "Estas son las Isapres que subirán sus precios este año",
     description:
       "Revisa qué aseguradoras aplicarán aumentos y considera comparar opciones para mantener una cobertura eficiente al mejor valor.",
     href: "https://www.biobiochile.cl/noticias/servicios/toma-nota/2025/08/28/estas-son-las-isapres-que-subiran-los-precios-de-sus-planes-de-salud-en-septiembre-y-cuales-no.shtml",
-    image: "/images/actualidad-4.jpg",
+    image: "/images/news-04.jpg",
   },
 ];
 
