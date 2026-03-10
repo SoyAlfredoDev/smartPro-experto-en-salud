@@ -24,7 +24,7 @@ const news: NewsItem[] = [
     description:
       "La revisión de primas GES podría generar ajustes favorables en planes de salud. Conoce cómo impacta esto en tu cotización.",
     href: "https://www.biobiochile.cl/noticias/nacional/chile/2025/12/29/superintendencia-de-salud-corrige-cobros-del-ges-tras-verificar-primas-de-isapres-por-primera-vez.shtml",
-    image: "/images/actualidad-2.webp",
+    image: "/images/news-02.webp",
   },
   {
     title: "Gobierno recuerda reajuste del precio base en planes de salud",
