@@ -252,6 +252,7 @@ const Cotizador = () => {
     TO_EMAIL: string;
     FROM_NAME: string;
     FROM_EMAIL: string;
+    terminos: boolean;
   }
 
   const initialFormData: FormData = {
@@ -271,6 +272,7 @@ const Cotizador = () => {
     TO_EMAIL: "contacto@expertoensalud.cl",
     FROM_NAME: "Experto en Salud",
     FROM_EMAIL: "contacto@expertoensalud.cl",
+    terminos: false,
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -279,6 +281,12 @@ const Cotizador = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
+
+    if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
+      setFormData((prev) => ({ ...prev, [name]: e.target.checked }));
+      return;
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -333,13 +341,10 @@ const Cotizador = () => {
         bg-[url('/images/bg-cotizador-section.jpeg')] bg-cover bg-center bg-no-repeat
       "
     >
-      {/* overlay (mejor contraste) */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-black/20 to-black/10" />
 
       <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-        {/* Layout: en desktop/med el card va a la derecha */}
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Columna izquierda (espacio / texto opcional) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -361,7 +366,6 @@ const Cotizador = () => {
             </ul>
           </motion.div>
 
-          {/* Columna derecha: Form */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -672,6 +676,28 @@ const Cotizador = () => {
                                   },
                                 ]}
                               />
+
+                              <div className="mt-2 rounded-xl bg-white/10 px-4 py-3 ring-1 ring-white/10">
+                                <div className="flex items-start gap-3">
+                                  <input
+                                    type="checkbox"
+                                    name="terminos"
+                                    id="terminos"
+                                    checked={formData.terminos}
+                                    onChange={handleChange}
+                                    required
+                                    className="mt-1 h-4 w-4 shrink-0 rounded border-white/30 bg-white text-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/40"
+                                  />
+                                  <label
+                                    htmlFor="terminos"
+                                    className="text-sm leading-6 text-white/90"
+                                  >
+                                    Autorizo el tratamiento de mis datos
+                                    personales conforme a la legislación vigente
+                                    y la política de privacidad.
+                                  </label>
+                                </div>
+                              </div>
                             </div>
 
                             <div className="mt-8 flex gap-3">
