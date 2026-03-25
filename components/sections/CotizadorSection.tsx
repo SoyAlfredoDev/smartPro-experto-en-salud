@@ -280,10 +280,12 @@ const Cotizador = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    const { name, value } = e.target;
+    const target = e.target;
+    const { name, value } = target;
 
-    if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
-      setFormData((prev) => ({ ...prev, [name]: e.target.checked }));
+    if (target instanceof HTMLInputElement && target.type === "checkbox") {
+      const checked = target.checked;
+      setFormData((prev) => ({ ...prev, [name]: checked }));
       return;
     }
 
