@@ -59,6 +59,20 @@ const Footer = () => {
     },
   ];
 
+  const dataBusiness = {
+    name: "VILERO GROUP SPA",
+    rut: "78411673-5",
+    description:
+      "Optimizamos tu elección de salud. Plataforma para encontrar y gestionar los mejores planes de previsión médica con total seguridad y transparencia.",
+    logo: "/images/logo-experto-en-salud.png",
+    email: "contacto@expertoensalud.cl",
+    phone: "+56 9 6446 7389",
+    whatsapp: "+56964467389",
+    address:
+      "Providencia 1017 Of 41, Santiago, Región Metropolitana, 77500000, Chile",
+    web: "https://expertoensalud.cl",
+  };
+
   return (
     <footer className="bg-background py-16 border-t border-gray-200 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -150,24 +164,19 @@ const Footer = () => {
               {/* Alineación condicional para íconos y texto */}
               <li className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-start gap-2 md:gap-3 group">
                 <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                <span>
-                  Vicuña Mackenna 920, dpto 726,
-                  <br className="hidden md:block" />
-                  <span className="md:hidden"> </span>
-                  Ñuñoa, 7750000
-                </span>
+                <span>{dataBusiness.address}</span>
               </li>
               <li className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2 md:gap-3 group">
                 <Phone className="w-5 h-5 text-primary shrink-0 group-hover:scale-110 transition-transform" />
-                <span>+56 9 6413 38 48</span>
+                <span>{dataBusiness.phone}</span>
               </li>
               <li className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2 md:gap-3 group">
                 <Mail className="w-5 h-5 text-primary shrink-0 group-hover:scale-110 transition-transform" />
                 <a
-                  href="mailto:Contacto@expertoensalud.cl"
+                  href="mailto:contacto@expertoensalud.cl"
                   className="hover:text-primary transition-colors duration-200"
                 >
-                  contacto@expertoensalud.cl
+                  {dataBusiness.email}
                 </a>
               </li>
             </ul>
@@ -205,8 +214,8 @@ const Footer = () => {
         {/* Barra inferior: Copyright, Creador y Legales */}
         <div className="mt-16 pt-8 border-t border-gray-200 flex flex-col lg:flex-row justify-between items-center gap-6 text-xs font-medium text-text-muted">
           <p className="text-center lg:text-left">
-            &copy; {currentYear} Experto en Salud. Todos los derechos
-            reservados.
+            &copy; {currentYear} {dataBusiness.name}, {dataBusiness.rut}. Todos
+            los derechos reservados.
           </p>
 
           {/* Sección de Isapres Premium */}
@@ -218,9 +227,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline font-bold transition-colors me-4"
-              >
-                smartpro.cl
-              </a>
+              ></a>
             </span>
             <a
               href="https://smartpro.cl"
