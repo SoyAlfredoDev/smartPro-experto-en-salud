@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle } from "lucide-react";
+import Link from "next/link";
 import { sendContactEmail } from "../../lib/email";
 
 // --- Componentes Reutilizables de UI ---
@@ -696,7 +697,14 @@ const Cotizador = () => {
                                   >
                                     Autorizo el tratamiento de mis datos
                                     personales conforme a la legislación vigente
-                                    y la política de privacidad.
+                                    y la{" "}
+                                    <Link
+                                      href="/politica-privacidad"
+                                      className="underline underline-offset-2 hover:text-white"
+                                    >
+                                      política de privacidad
+                                    </Link>
+                                    .
                                   </label>
                                 </div>
                               </div>
