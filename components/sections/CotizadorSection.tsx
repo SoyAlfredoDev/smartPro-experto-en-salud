@@ -349,7 +349,7 @@ const Cotizador = () => {
       <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={false}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -370,7 +370,7 @@ const Cotizador = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -409,7 +409,7 @@ const Cotizador = () => {
                             key="step1"
                             custom={direction}
                             variants={variants}
-                            initial="enter"
+                            initial={false}
                             animate="center"
                             exit="exit"
                             transition={{
@@ -472,7 +472,7 @@ const Cotizador = () => {
                             key="step2"
                             custom={direction}
                             variants={variants}
-                            initial="enter"
+                            initial={false}
                             animate="center"
                             exit="exit"
                             transition={{
@@ -617,7 +617,7 @@ const Cotizador = () => {
                             key="step3"
                             custom={direction}
                             variants={variants}
-                            initial="enter"
+                            initial={false}
                             animate="center"
                             exit="exit"
                             transition={{

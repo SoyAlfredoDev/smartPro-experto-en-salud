@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-//import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
-
-const interFont = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://expertoensalud.cl";
 
@@ -64,9 +57,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body
-        className={`${interFont.variable} antialiased font-sans flex flex-col min-h-screen`}
-      >
+      <head>
+        <link rel="stylesheet" href="/styles.css" />
+      </head>
+      <body className="antialiased font-sans flex flex-col min-h-screen">
         {children}
       </body>
     </html>

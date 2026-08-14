@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import CotizadorSection from "@/components/sections/CotizadorSection";
 import { HeroAdvisorySection } from "@/components/sections/HeroAdvisorySection";
+import TeamSection from "@/components/sections/TeamSection";
 import StepsSection from "@/components/sections/StepSection";
 import CalendlySection from "@/components/sections/CalendlySection";
 import ActualidadSection from "@/components/sections/ActualidadSection";
@@ -23,6 +24,7 @@ export default function Home() {
         <CotizadorSection />
         <StepsSection />
         <CalendlySection />
+        <TeamSection />
         <LogosIsapresSection />
         <ActualidadSection />
         <FaqSection />

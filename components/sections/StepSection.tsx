@@ -1,7 +1,6 @@
 // StepsSection.tsx
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 
 const steps = [
@@ -53,7 +52,7 @@ export default function StepsSection() {
       <div className="mx-auto max-w-6xl px-6">
         {/* Title */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
@@ -66,7 +65,7 @@ export default function StepsSection() {
         {/* Cards */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           className="grid gap-8 md:grid-cols-3"
@@ -78,12 +77,16 @@ export default function StepsSection() {
               className="group overflow-hidden rounded-2xl bg-white shadow-md transition-shadow hover:shadow-xl"
             >
               {/* Image */}
-              <div className="relative h-48 w-full overflow-hidden">
-                <Image
+              <div
+                className="relative h-48 w-full overflow-hidden"
+                style={{ position: "relative", height: 192 }}
+              >
+                <img
                   src={step.image}
                   alt={step.title}
-                  fill
-                  className="object-cover transition duration-700 ease-out group-hover:scale-105"
+                  width={640}
+                  height={192}
+                  className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
                 />
               </div>
 

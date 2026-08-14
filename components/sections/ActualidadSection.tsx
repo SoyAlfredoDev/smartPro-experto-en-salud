@@ -1,7 +1,6 @@
 // ActualidadSection.tsx
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 
 type NewsItem = {
@@ -52,22 +51,13 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
-
 export default function ActualidadSection() {
   return (
     <section className="relative w-full bg-white" id="actualidad">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
@@ -89,7 +79,7 @@ export default function ActualidadSection() {
         {/* Grid */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
@@ -109,15 +99,17 @@ export default function ActualidadSection() {
                 focus:outline-none focus:ring-4 focus:ring-[color:var(--accent)]/20
               "
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-slate-100">
-                <Image
+              <div
+                className="relative overflow-hidden rounded-2xl bg-slate-100"
+                style={{ position: "relative", aspectRatio: "4 / 5" }}
+              >
+                <img
                   src={item.image}
                   alt={item.title}
-                  fill
-                  className="object-cover transition duration-700 ease-out group-hover:scale-105"
-                  sizes="(min-width: 1024px) 260px, (min-width: 640px) 50vw, 100vw"
+                  width={520}
+                  height={650}
+                  className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/0 transition duration-300 group-hover:bg-black/10" />
               </div>
 
               <div className="px-1 pt-4">

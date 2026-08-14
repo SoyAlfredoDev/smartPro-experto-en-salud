@@ -24,7 +24,7 @@ export function HeroAdvisorySection() {
         {/* Content */}
         <div className="relative mx-auto flex w-full max-w-6xl items-center px-4 sm:px-6 lg:px-8 h-full">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="py-12 sm:py-16 lg:py-20"
@@ -32,7 +32,7 @@ export function HeroAdvisorySection() {
             {/* Badge / title */}
             <div className="inline-flex max-w-[92vw] flex-col gap-3">
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={false}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
                 className="inline-flex items-center rounded-2xl bg-white/85 px-5 py-3 shadow-xl backdrop-blur sm:px-6 sm:py-4"
@@ -58,7 +58,7 @@ export function HeroAdvisorySection() {
 
               {/* Supporting copy (UX: agrega contexto y mejora conversión) */}
               <motion.p
-                initial={{ opacity: 0 }}
+                initial={false}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
                 className="
@@ -74,7 +74,7 @@ export function HeroAdvisorySection() {
 
               {/* CTAs */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
                 className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center"
@@ -116,7 +116,7 @@ export function HeroAdvisorySection() {
 
               {/* Micro trust line (opcional pero pro) */}
               <motion.div
-                initial={{ opacity: 0 }}
+                initial={false}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.5 }}
                 className="mt-1 text-xs text-white/80 sm:text-sm"

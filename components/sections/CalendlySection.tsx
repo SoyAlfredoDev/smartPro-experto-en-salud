@@ -1,16 +1,19 @@
 "use client";
-// CalendlySection.tsx
-import Image from "next/image";
-import { PopupButton } from "react-calendly";
+
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
+const PopupButton = dynamic(
+  () => import("react-calendly").then((mod) => mod.PopupButton),
+  { ssr: false },
+);
 
 export default function CalendlySection() {
   const linkCalendly = process.env.NEXT_PUBLIC_LINK_CALENDLY;
-  // Estado para asegurar que Calendly solo se renderice en el cliente (evita errores de hidratación en Next.js)
-  const [isClient, setIsClient] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    setMounted(true);
   }, []);
 
   return (
@@ -53,14 +56,14 @@ export default function CalendlySection() {
             </p>
 
             <div className="mt-8">
-              {isClient && (
+              {mounted && linkCalendly ? (
                 <PopupButton
-                  url={linkCalendly || ""}
+                  url={linkCalendly}
                   rootElement={document.body}
                   text="HORARIOS DISPONIBLES"
                   className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]/60"
                 />
-              )}
+              ) : null}
             </div>
           </div>
 
@@ -73,17 +76,15 @@ export default function CalendlySection() {
                 overflow-hidden rounded-3xl
                 shadow-2xl ring-1 ring-white/10
               "
+              style={{ position: "relative" }}
             >
-              <Image
+              <img
                 src="/images/img-calendly-section.jpeg"
                 alt="Videollamada por Zoom"
-                fill
-                priority
-                className="object-cover "
-                sizes="(min-width: 1024px) 640px, 100vw"
+                width={1280}
+                height={720}
+                className="h-full w-full object-cover"
               />
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent" />
             </div>
           </div>
         </div>

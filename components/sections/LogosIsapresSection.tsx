@@ -20,7 +20,7 @@ export default function LogosIsapresSection() {
     <section className="relative overflow-hidden py-14 md:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
@@ -55,26 +55,6 @@ export default function LogosIsapresSection() {
           </div>
         </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes marquee-scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-
-        .marquee-track {
-          animation: marquee-scroll 24s linear infinite;
-          will-change: transform;
-        }
-
-        .marquee-track:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 }
