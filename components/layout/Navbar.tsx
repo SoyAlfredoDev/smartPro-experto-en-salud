@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,21 +8,39 @@ import { Menu, X } from "lucide-react";
 import { Button } from "../ui/Button";
 
 const navLinks = [
-  { name: "Cotizador", href: "#cotizador" },
-  { name: "Pasos", href: "#pasos" },
-  { name: "Actualidad", href: "#actualidad" },
+  { name: "Cotizador", href: "/#cotizador" },
+  { name: "Pasos", href: "/#pasos" },
+  { name: "Equipo", href: "/#equipo" },
+  { name: "Actualidad", href: "/#actualidad" },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
+  useEffect(() => {
+    const sentinel = document.getElementById("nav-sentinel");
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setScrolled(!entry.isIntersecting),
+      { threshold: 1 },
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
-      <nav className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
-        <div className="container mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      <div id="nav-sentinel" className="h-px w-full" aria-hidden="true" />
+      <nav
+        className={`sticky top-0 z-40 w-full bg-white/92 backdrop-blur-md transition-shadow duration-300 ${
+          scrolled ? "shadow-[0_10px_30px_rgba(36,74,115,0.08)]" : ""
+        }`}
+      >
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-[4.5rem]">
           {/* Logo */}
           <Link
             href="/"
@@ -34,7 +52,8 @@ export function Navbar() {
               alt="Logo Experto en Salud"
               width={140}
               height={140}
-              className="object-contain"
+              className="h-12 w-auto object-contain md:h-14"
+              style={{ width: "auto" }}
               priority
             />
           </Link>
@@ -50,7 +69,7 @@ export function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link href="#solicitar-video">
+            <Link href="/#solicitar-video">
               <Button
                 variant="primary"
                 className="shadow-md hover:shadow-lg transition-all rounded-xl"
@@ -116,7 +135,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-20 right-0 bottom-0 z-40 w-64 bg-white/95 backdrop-blur-md shadow-2xl md:hidden flex flex-col pt-8"
+              className="fixed top-16 right-0 bottom-0 z-40 flex w-[min(100%,20rem)] flex-col bg-white/95 pt-8 shadow-2xl backdrop-blur-md md:hidden"
             >
               <div className="flex flex-col gap-6 px-6 font-medium text-lg">
                 {navLinks.map((link) => (
@@ -130,7 +149,7 @@ export function Navbar() {
                   </Link>
                 ))}
                 <Link
-                  href="#solicitar-video"
+                  href="/#solicitar-video"
                   onClick={closeMenu}
                   className="mt-4"
                 >

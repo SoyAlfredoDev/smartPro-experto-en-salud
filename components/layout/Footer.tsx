@@ -74,28 +74,27 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-background py-16 border-t border-gray-200 font-sans">
+    <footer className="border-t border-slate-200 bg-white py-16 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Columna 1: Marca y Descripción */}
           <div className="space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="text-3xl font-bold text-text-main tracking-wide">
-              <Image
-                src="/images/logo-experto-en-salud.png"
-                alt="Logo SmartPro"
-                width={200}
-                height={200}
-                style={{ marginTop: "-30px", marginBottom: "-20px" }}
-              />
-            </h3>
-            <p className="text-sm leading-relaxed text-text-muted md:pr-4">
+            <Image
+              src="/images/logo-experto-en-salud.png"
+              alt="Logo Experto en Salud"
+              width={200}
+              height={80}
+              className="h-16 w-auto object-contain"
+              style={{ width: "auto" }}
+            />
+            <p className="text-sm leading-relaxed text-slate-500 md:pr-4">
               Optimizamos tu elección de salud. Plataforma para encontrar y
               gestionar los mejores planes de previsión médica con total
               seguridad y transparencia.
             </p>
 
             {/* Indicador de UF */}
-            <div className="mt-6 inline-flex items-center gap-3 bg-background border border-gray-200 px-4 py-3 rounded-lg shadow-sm">
+            <div className="mt-6 inline-flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 shadow-sm">
               <div className="relative flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-primary relative z-10" />
                 <span className="absolute top-0 right-0 -mt-1 -mr-1 flex h-2.5 w-2.5">
@@ -104,10 +103,10 @@ const Footer = () => {
                 </span>
               </div>
               <div className="text-left">
-                <p className="text-[11px] text-text-muted font-bold uppercase tracking-wider">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
                   Valor UF Hoy
                 </p>
-                <p className="text-text-main font-extrabold">
+                <p className="font-extrabold text-[color:var(--secondary)]">
                   {ufValue ? ufValue : "Cargando..."}
                 </p>
               </div>
@@ -116,51 +115,34 @@ const Footer = () => {
 
           {/* Columna 2: Enlaces Rápidos */}
           <div className="space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
-            <h4 className="text-lg font-bold text-text-main tracking-wide">
+            <h4 className="text-lg font-bold tracking-wide text-[color:var(--secondary)]">
               Enlaces Rápidos
             </h4>
             <ul className="space-y-3 text-sm font-medium">
-              <li>
-                <a
-                  href="#"
-                  className="text-text-muted hover:text-primary transition-colors duration-200 block"
-                >
-                  Inicio
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-text-muted hover:text-primary transition-colors duration-200 block"
-                >
-                  Cotizador Digital
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-text-muted hover:text-primary transition-colors duration-200 block"
-                >
-                  Directorio de Isapres
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-text-muted hover:text-primary transition-colors duration-200 block"
-                >
-                  Noticias
-                </a>
-              </li>
+              {[
+                ["Inicio", "/"],
+                ["Cotizador", "/#cotizador"],
+                ["Ejecutivos", "/#equipo"],
+                ["Actualidad", "/#actualidad"],
+              ].map(([label, href]) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    className="block text-slate-500 transition-colors duration-200 hover:text-primary"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Columna 3: Información de Contacto */}
           <div className="space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
-            <h4 className="text-lg font-bold text-text-main tracking-wide">
+            <h4 className="text-lg font-bold tracking-wide text-[color:var(--secondary)]">
               Contacto
             </h4>
-            <ul className="space-y-4 text-sm font-medium text-text-muted w-full">
+            <ul className="w-full space-y-4 text-sm font-medium text-slate-500">
               {/* Alineación condicional para íconos y texto */}
               <li className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-start gap-2 md:gap-3 group">
                 <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
@@ -184,14 +166,14 @@ const Footer = () => {
 
           {/* Columna 4: Redes Sociales */}
           <div className="space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
-            <h4 className="text-lg font-bold text-text-main tracking-wide">
+            <h4 className="text-lg font-bold tracking-wide text-[color:var(--secondary)]">
               Síguenos
             </h4>
-            <p className="text-sm text-text-muted mb-4 max-w-xs md:max-w-none">
+            <p className="mb-4 max-w-xs text-sm text-slate-500 md:max-w-none">
               Mantente al tanto de las últimas novedades y actualizaciones.
             </p>
             <div className="flex justify-center md:justify-start gap-4">
-              {socialLinks.map((social, index) => {
+              {socialLinks.filter((social) => social.href).map((social, index) => {
                 const Icon = social.icon;
                 return (
                   <motion.a
@@ -201,7 +183,7 @@ const Footer = () => {
                     whileHover={{ scale: 1.1, y: -4 }}
                     whileTap={{ scale: 0.95 }}
                     target="_blank"
-                    className="w-10 h-10 rounded-full bg-background border border-gray-200 flex items-center justify-center text-text-muted hover:bg-primary hover:text-white hover:border-primary shadow-sm hover:shadow-primary/30 transition-all duration-300"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white"
                   >
                     <Icon className="w-4 h-4" />
                   </motion.a>
@@ -212,7 +194,7 @@ const Footer = () => {
         </div>
 
         {/* Barra inferior: Copyright, Creador y Legales */}
-        <div className="mt-16 pt-8 border-t border-gray-200 flex flex-col lg:flex-row justify-between items-center gap-6 text-xs font-medium text-text-muted">
+        <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-slate-200 pt-8 text-xs font-medium text-slate-500 lg:flex-row">
           <p className="text-center lg:text-left">
             &copy; {currentYear} {dataBusiness.name}, {dataBusiness.rut}. Todos
             los derechos reservados.
@@ -220,7 +202,7 @@ const Footer = () => {
 
           {/* Sección de Isapres Premium */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-            <span className="text-text-muted">
+            <span className="text-slate-500">
               creado por{" "}
               <a
                 href="https://smartpro.cl"
@@ -241,14 +223,12 @@ const Footer = () => {
                 width={150}
                 height={28}
                 className="h-7 w-auto object-contain"
+                style={{ width: "auto" }}
               />
             </a>
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-center">
-            <a href="#" className="hover:text-primary transition-colors">
-              Términos y Condiciones
-            </a>
             <a
               href="/politica-privacidad"
               className="hover:text-primary transition-colors"

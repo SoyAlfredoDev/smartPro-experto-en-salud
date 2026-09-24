@@ -1,132 +1,110 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
-// HeroAdvisorySection.tsx
-// Requiere variables CSS:
-// --primary, --secondary, --accent
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  show: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as const },
+  }),
+};
+
 export function HeroAdvisorySection() {
+  const reduce = useReducedMotion();
+
   return (
     <section className="relative w-full">
-      {/* Full-bleed hero */}
       <div
         className="
-          relative w-full
-          min-h-[320px] sm:min-h-[420px] lg:min-h-[560px]
+          relative w-full overflow-hidden
+          min-h-[460px] sm:min-h-[520px] lg:min-h-[620px]
           bg-[url('/images/bg-hero-advisory-section.jpeg')]
           bg-cover bg-no-repeat
           bg-[position:70%_20%] sm:bg-[position:70%_18%] lg:bg-[position:66%_14%]
         "
       >
-        {/* Contrast overlay (mejor legibilidad en todos los tamaños) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[color:var(--secondary)]/55 via-[color:var(--secondary)]/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[color:var(--secondary)]/85 via-[color:var(--secondary)]/55 to-[color:var(--secondary)]/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--secondary)]/50 via-transparent to-transparent sm:hidden" />
 
-        {/* Content */}
-        <div className="relative mx-auto flex w-full max-w-6xl items-center px-4 sm:px-6 lg:px-8 h-full">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="py-12 sm:py-16 lg:py-20"
-          >
-            {/* Badge / title */}
-            <div className="inline-flex max-w-[92vw] flex-col gap-3">
-              <motion.div
-                initial={false}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="inline-flex items-center rounded-2xl bg-white/85 px-5 py-3 shadow-xl backdrop-blur sm:px-6 sm:py-4"
+        <div className="relative mx-auto flex h-full w-full max-w-6xl items-center px-4 sm:px-6 lg:px-8">
+          <div className="py-14 sm:py-20 lg:py-24">
+            <motion.p
+              custom={0.05}
+              variants={fadeUp}
+              initial={reduce ? false : "hidden"}
+              animate="show"
+              className="mb-4 inline-flex items-center rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white backdrop-blur"
+            >
+              Asesoría gratuita en Chile
+            </motion.p>
+
+            <motion.h1
+              custom={0.15}
+              variants={fadeUp}
+              initial={reduce ? false : "hidden"}
+              animate="show"
+              className="max-w-xl text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
+            >
+              Asesoría en Isapres en Chile
+            </motion.h1>
+
+            <motion.div
+              initial={reduce ? false : { width: 0 }}
+              animate={{ width: "5.5rem" }}
+              transition={{ delay: 0.35, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-5 h-1.5 rounded-full bg-[color:var(--accent)]"
+            />
+
+            <motion.p
+              custom={0.3}
+              variants={fadeUp}
+              initial={reduce ? false : "hidden"}
+              animate="show"
+              className="mt-5 max-w-xl text-base font-medium leading-relaxed text-white/95 sm:text-lg"
+            >
+              Te ayudamos a elegir, comparar y cambiar a la mejor Isapre de
+              Chile. Asegura tu tranquilidad con una asesoría 100%
+              personalizada.
+            </motion.p>
+
+            <motion.div
+              custom={0.42}
+              variants={fadeUp}
+              initial={reduce ? false : "hidden"}
+              animate="show"
+              className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center"
+            >
+              <motion.a
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                href="#cotizador"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-[color:var(--accent)] px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-[color:var(--accent)]/30 transition-colors hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-[color:var(--accent)]/40 sm:w-auto"
               >
-                <h1
-                  className="
-                    leading-tight tracking-wide text-[color:var(--primary)]
-                    text-2xl font-extrabold
-                    sm:text-3xl
-                    lg:text-4xl
-                  "
-                >
-                  Asesoría en Isapres en Chile
-                </h1>
-              </motion.div>
+                Cotizar ahora
+              </motion.a>
 
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ delay: 0.5, duration: 0.7 }}
-                className="h-1.5 max-w-24 rounded-full bg-[color:var(--accent)] sm:max-w-28"
-              />
-
-              {/* Supporting copy (UX: agrega contexto y mejora conversión) */}
-              <motion.p
-                initial={false}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                className="
-                  max-w-xl text-white/95
-                  text-sm sm:text-base lg:text-lg
-                  drop-shadow font-medium
-                "
+              <motion.a
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                href="#solicitar-video"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-white px-6 py-3.5 text-base font-semibold text-[color:var(--secondary)] shadow-lg transition-colors hover:bg-white/90 focus:outline-none focus:ring-4 focus:ring-white/40 sm:w-auto"
               >
-                Te ayudamos a elegir, comparar y cambiar a la mejor Isapre de
-                Chile. Asegura tu tranquilidad con una asesoría 100%
-                personalizada.
-              </motion.p>
-
-              {/* CTAs */}
-              <motion.div
-                initial={false}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-                className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center"
-              >
-                <motion.a
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  href="#cotizador"
-                  className="
-                    inline-flex w-full items-center justify-center rounded-xl
-                    bg-[color:var(--primary)] px-5 py-3
-                    text-base font-semibold text-white
-                    shadow-lg transition-colors
-                    hover:opacity-95
-                    focus:outline-none focus:ring-4 focus:ring-[color:var(--primary)]/30
-                    sm:w-auto sm:px-6
-                  "
-                >
-                  Cotizar ahora
-                </motion.a>
-
-                <motion.a
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  href="#solicitar-video"
-                  className="
-                    inline-flex w-full items-center justify-center rounded-xl
-                    bg-white/90 px-5 py-3
-                    text-base font-semibold text-[color:var(--secondary)]
-                    shadow-lg transition-colors
-                    hover:bg-white
-                    focus:outline-none focus:ring-4 focus:ring-white/40
-                    sm:w-auto sm:px-6
-                  "
-                >
-                  Solicitar video
-                </motion.a>
-              </motion.div>
-
-              {/* Micro trust line (opcional pero pro) */}
-              <motion.div
-                initial={false}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-                className="mt-1 text-xs text-white/80 sm:text-sm"
-              >
-                Respuesta rápida • Sin costo • Por WhatsApp o videollamada
-              </motion.div>
-            </div>
-          </motion.div>
+                Solicitar video
+              </motion.a>
+            </motion.div>
+          </div>
         </div>
       </div>
+
+      <ul className="mx-auto flex max-w-6xl flex-wrap gap-x-6 gap-y-2 px-4 py-4 text-sm font-medium text-[color:var(--secondary)] sm:px-6 lg:px-8">
+        {["Respuesta rápida", "Sin costo", "WhatsApp o videollamada"].map(
+          (item) => (
+            <li key={item}>{item}</li>
+          ),
+        )}
+      </ul>
     </section>
   );
 }

@@ -19,7 +19,7 @@ export default function Home() {
       <OrganizationSchema />
       <LocalBusinessSchema />
       <Navbar />
-      <main className="flex-grow">
+      <main id="contenido" className="flex-grow">
         <HeroAdvisorySection />
         <CotizadorSection />
         <StepsSection />

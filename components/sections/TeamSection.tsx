@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ShieldCheck, X, Mail } from "lucide-react";
@@ -109,14 +109,109 @@ const allIsapres = [
   "Nueva Masvida",
 ];
 
+function ExecutiveCard({
+  exec,
+  href,
+  className = "",
+}: {
+  exec: Executive;
+  href: string;
+  className?: string;
+}) {
+  return (
+    <article
+      className={`group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 text-center shadow-sm ${className}`}
+    >
+      <div
+        className="relative mb-4 w-full overflow-hidden rounded-xl bg-slate-100"
+        style={{ aspectRatio: "3 / 4" }}
+      >
+        <Image
+          src={exec.avatar}
+          alt={`Foto de ${exec.name}`}
+          fill
+          sizes="(max-width: 1024px) 78vw, 16vw"
+          className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+
+      <div className="flex flex-grow flex-col">
+        <h3 className="line-clamp-2 text-sm font-bold leading-tight text-[#1e3a8a]">
+          {exec.name}
+        </h3>
+        <p className="mt-1 text-xs text-gray-600">{exec.role}</p>
+        <div className="my-2.5 flex h-6 items-center justify-center">
+          <Image
+            src={exec.isapreLogo}
+            alt={exec.isapre}
+            width={100}
+            height={24}
+            className="h-full w-auto object-contain"
+            style={{ width: "auto" }}
+          />
+        </div>
+        <div className="flex items-center justify-center gap-1">
+          <div className="flex text-amber-400">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className="h-3 w-3 fill-amber-400 text-amber-400"
+              />
+            ))}
+          </div>
+          <span className="text-xs font-bold text-gray-800">
+            {exec.rating.toFixed(1)}
+          </span>
+        </div>
+        <p className="text-[10px] text-gray-500">
+          ({exec.reviewsCount} evaluaciones)
+        </p>
+      </div>
+
+      <a
+        href={href}
+        className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-lg border border-blue-300/50 bg-blue-50/50 px-3 py-2 text-xs font-semibold text-[#1d4ed8] transition-all duration-200 hover:border-blue-400 hover:bg-blue-100/60 active:scale-95"
+      >
+        <Mail className="h-3.5 w-3.5" />
+        <span>Contactar</span>
+      </a>
+    </article>
+  );
+}
+
 export default function TeamSection() {
   const [selectedIsapre, setSelectedIsapre] = useState<string>("Todos");
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
   const filteredExecutives =
     selectedIsapre === "Todos"
       ? executives
       : executives.filter((e) => e.isapre === selectedIsapre);
+
+  useEffect(() => {
+    setActiveSlide(0);
+    if (scrollerRef.current) scrollerRef.current.scrollLeft = 0;
+  }, [selectedIsapre]);
+
+  const updateActiveSlide = () => {
+    const el = scrollerRef.current;
+    const card = el?.firstElementChild as HTMLElement | null;
+    if (!el || !card) return;
+    const step = card.offsetWidth + 16;
+    const index = Math.round(el.scrollLeft / step);
+    setActiveSlide(
+      Math.max(0, Math.min(index, filteredExecutives.length - 1)),
+    );
+  };
+
+  const scrollToSlide = (index: number) => {
+    const el = scrollerRef.current;
+    const card = el?.children[index] as HTMLElement | undefined;
+    if (!el || !card) return;
+    el.scrollTo({ left: card.offsetLeft - 16, behavior: "smooth" });
+  };
 
   const getEmailLink = (exec: Executive) => {
     const subject = encodeURIComponent(
@@ -132,20 +227,20 @@ export default function TeamSection() {
 
   return (
     <section
-      className="relative w-full bg-[#f8fafc] py-16 md:py-20"
+      className="relative w-full scroll-mt-24 bg-white py-16 md:py-20"
       id="equipo"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-center sm:justify-between">
           <motion.div
-            initial={false}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-xl font-black uppercase tracking-tight text-[#1e3a8a] sm:text-2xl md:text-3xl">
-              Nuestros Ejecutivos
+            <h2 className="text-3xl font-extrabold tracking-tight text-[color:var(--primary)] sm:text-4xl">
+              Nuestros ejecutivos
             </h2>
 
             <p className="mt-1 text-sm font-normal text-gray-500 sm:text-base">
@@ -155,8 +250,8 @@ export default function TeamSection() {
           </motion.div>
 
           <motion.button
-            initial={false}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             onClick={() => setShowModal(true)}
@@ -167,12 +262,12 @@ export default function TeamSection() {
         </div>
 
         {/* Filter Pills */}
-        <div className="mb-6 flex flex-wrap items-center gap-2">
+        <div className="mb-6 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] sm:flex-wrap [&::-webkit-scrollbar]:hidden">
           {allIsapres.map((isapre) => (
             <button
               key={isapre}
               onClick={() => setSelectedIsapre(isapre)}
-              className={`rounded-full px-3.5 py-1 text-xs font-medium transition-all ${
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all ${
                 selectedIsapre === isapre
                   ? "bg-[#1e3a8a] text-white shadow-sm"
                   : "border border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50"
@@ -183,93 +278,56 @@ export default function TeamSection() {
           ))}
         </div>
 
-        {/* Executives Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-3.5 [grid-auto-rows:1fr]"
-        >
-          {filteredExecutives.map((exec, index) => (
-            <motion.div
-              layout
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-              key={exec.id}
-              className="group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-300/50 hover:shadow-md"
-            >
-              {/* Avatar Container */}
-              <div
-                className="relative mb-4 h-auto w-full overflow-hidden rounded-xl bg-white"
-                style={{ aspectRatio: "3 / 4" }}
-              >
-                <Image
-                  src={exec.avatar}
-                  alt={`Foto de ${exec.name}`}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 16vw"
-                  className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-
-              {/* Content Section */}
-              <div className="flex flex-col flex-grow">
-                {/* Name */}
-                <h3 className="line-clamp-2 text-sm font-bold leading-tight text-[#1e3a8a]">
-                  {exec.name}
-                </h3>
-
-                {/* Role */}
-                <p className="mt-1 text-xs text-gray-600">{exec.role}</p>
-
-                {/* Isapre Logo */}
-                <div className="my-2.5 flex h-6 items-center justify-center">
-                  <Image
-                    src={exec.isapreLogo}
-                    alt={exec.isapre}
-                    width={100}
-                    height={24}
-                    className="h-full w-auto object-contain"
-                  />
-                </div>
-
-                {/* Rating */}
-                <div className="flex items-center justify-center gap-1">
-                  <div className="flex text-amber-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="h-3 w-3 fill-amber-400 text-amber-400"
-                      />
-                    ))}
-                  </div>
-
-                  <span className="text-xs font-bold text-gray-800">
-                    {exec.rating.toFixed(1)}
-                  </span>
-                </div>
-
-                {/* Reviews count */}
-                <p className="text-[10px] text-gray-500">
-                  ({exec.reviewsCount} evaluaciones)
-                </p>
-              </div>
-
-              {/* Contact Button - Always at bottom */}
-              <a
+        <div className="lg:hidden">
+          <div
+            ref={scrollerRef}
+            onScroll={updateActiveSlide}
+            className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {filteredExecutives.map((exec) => (
+              <ExecutiveCard
+                key={exec.id}
+                exec={exec}
                 href={getEmailLink(exec)}
-                className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-lg border border-blue-300/50 bg-blue-50/50 px-3 py-2 text-xs font-semibold text-[#1d4ed8] transition-all duration-200 hover:border-blue-400 hover:bg-blue-100/60 active:scale-95"
-              >
-                <Mail className="h-3.5 w-3.5" />
-                <span>Contactar</span>
-              </a>
-            </motion.div>
+                className="w-[78%] max-w-[280px] shrink-0 snap-center shadow-md"
+              />
+            ))}
+          </div>
+
+          <div className="mt-4 flex items-center justify-center gap-1.5">
+            {filteredExecutives.map((exec, index) => (
+              <button
+                key={exec.id}
+                type="button"
+                aria-label={`Ver a ${exec.name}`}
+                onClick={() => scrollToSlide(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  index === activeSlide
+                    ? "w-6 bg-[color:var(--primary)]"
+                    : "w-1.5 bg-slate-300"
+                }`}
+              />
+            ))}
+          </div>
+          <p className="mt-2 text-center text-xs text-slate-400">
+            Desliza para ver al equipo
+          </p>
+        </div>
+
+        <div className="hidden gap-4 lg:grid lg:grid-cols-3 xl:grid-cols-6 xl:gap-3.5">
+          {filteredExecutives.map((exec) => (
+            <ExecutiveCard
+              key={exec.id}
+              exec={exec}
+              href={getEmailLink(exec)}
+              className="transition-all duration-300 hover:-translate-y-1 hover:border-blue-300/50 hover:shadow-md"
+            />
           ))}
-        </motion.div>
+        </div>
 
         {/* Bottom Trust Badge */}
         <motion.div
-          initial={false}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -355,7 +413,8 @@ export default function TeamSection() {
                         alt={exec.isapre}
                         width={80}
                         height={24}
-                        className="max-h-5  min-h-3 w-auto object-contain"
+                        className="max-h-5 min-h-3 w-auto object-contain"
+                        style={{ width: "auto" }}
                       />
                     </div>
 

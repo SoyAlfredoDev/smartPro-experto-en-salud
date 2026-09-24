@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { motion, useReducedMotion } from "framer-motion";
+import { Video } from "lucide-react";
 
 const PopupButton = dynamic(
   () => import("react-calendly").then((mod) => mod.PopupButton),
@@ -11,6 +13,7 @@ const PopupButton = dynamic(
 export default function CalendlySection() {
   const linkCalendly = process.env.NEXT_PUBLIC_LINK_CALENDLY;
   const [mounted, setMounted] = useState(false);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
@@ -18,7 +21,7 @@ export default function CalendlySection() {
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-[color:var(--secondary)]"
+      className="relative w-full scroll-mt-24 overflow-hidden bg-[color:var(--secondary)]"
       id="solicitar-video"
     >
       <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black/20 to-transparent" />
@@ -26,20 +29,19 @@ export default function CalendlySection() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* LEFT SIDE */}
-          <div>
-            <h2 className="text-4xl font-extrabold tracking-wide text-white sm:text-5xl lg:text-6xl">
-              CONÉCTATE
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h2 className="text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+              Conéctate
             </h2>
 
             <div className="mt-6 flex items-center gap-4">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-7 w-7 text-white/90"
-                  fill="currentColor"
-                >
-                  <path d="M15 10.5V8.25A2.25 2.25 0 0 0 12.75 6h-7.5A2.25 2.25 0 0 0 3 8.25v7.5A2.25 2.25 0 0 0 5.25 18h7.5A2.25 2.25 0 0 0 15 15.75V13.5l5.03 3.016A.75.75 0 0 0 21 15.87V8.13a.75.75 0 0 0-1.12-.646L15 10.5Z" />
-                </svg>
+                <Video className="h-7 w-7 text-white/90" strokeWidth={1.75} aria-hidden="true" />
               </div>
 
               <div>
@@ -65,14 +67,19 @@ export default function CalendlySection() {
                 />
               ) : null}
             </div>
-          </div>
+          </motion.div>
 
-          {/* RIGHT SIDE – IMAGE MÁS PROTAGONISTA */}
-          <div className="relative flex justify-center lg:justify-end">
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex justify-center lg:justify-end"
+          >
             <div
               className="
                 relative w-full max-w-2xl
-                h-[320px] sm:h-[420px] lg:h-[520px]
+                h-[260px] sm:h-[360px] lg:h-[440px]
                 overflow-hidden rounded-3xl
                 shadow-2xl ring-1 ring-white/10
               "
@@ -83,10 +90,10 @@ export default function CalendlySection() {
                 alt="Videollamada por Zoom"
                 width={1280}
                 height={720}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition duration-700 hover:scale-105"
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

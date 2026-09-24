@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
-import { HelpCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { Reveal } from "@/components/ui/Reveal";
 
 const faqs = [
   {
@@ -27,29 +28,9 @@ const faqs = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1], // <- reemplaza "easeOut" (string) por cubic-bezier (tipado)
-    },
-  },
-};
-
 export function FaqSection() {
+  const [openIndex, setOpenIndex] = useState(0);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -64,49 +45,68 @@ export function FaqSection() {
   };
 
   return (
-    <section className="py-16 bg-white sm:py-24">
+    <section className="scroll-mt-24 bg-white py-16 sm:py-24" id="preguntas">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={false}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto max-w-2xl lg:text-center"
-        >
-          <h2 className="text-3xl font-extrabold tracking-tight text-[color:var(--primary)] sm:text-4xl">
-            Preguntas Frecuentes sobre Isapres
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <Reveal className="text-center">
+          <h2 className="text-balance text-3xl font-extrabold tracking-tight text-[color:var(--primary)] sm:text-4xl">
+            Preguntas frecuentes sobre Isapres
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-4 text-base text-slate-600 sm:text-lg">
             Resolvemos tus dudas principales sobre el proceso de cotización y
             cambio de Isapre en Chile.
           </p>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          variants={containerVariants}
-          initial={false}
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="mx-auto mt-12 max-w-3xl space-y-6"
-        >
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ y: -4, scale: 1.01 }}
-              className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[color:var(--accent)]/30"
-            >
-              <h3 className="flex items-start text-lg font-medium text-[color:var(--secondary)]">
-                <HelpCircle className="mr-3 mt-1 h-5 w-5 flex-shrink-0 text-[color:var(--accent)]" />
-                {faq.question}
-              </h3>
-              <p className="mt-4 text-base text-gray-600 pl-8">{faq.answer}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="mt-10 space-y-3">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <motion.div
+                key={faq.question}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+                className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+              >
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6"
+                >
+                  <span className="text-base font-semibold text-[color:var(--secondary)] sm:text-lg">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={`h-5 w-5 shrink-0 text-[color:var(--accent)] transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-5 pb-5 text-sm leading-6 text-slate-600 sm:px-6 sm:text-base">
+                        {faq.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

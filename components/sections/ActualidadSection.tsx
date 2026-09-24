@@ -2,6 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Reveal } from "@/components/ui/Reveal";
 
 type NewsItem = {
   title: string;
@@ -42,44 +43,41 @@ const news: NewsItem[] = [
 ];
 
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
 export default function ActualidadSection() {
   return (
-    <section className="relative w-full bg-white" id="actualidad">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={false}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"
-        >
-          <div className="relative">
-            <div className="absolute -left-4 top-2 hidden h-24 w-[2px] bg-slate-200 lg:block" />
-            <h2 className="text-5xl font-extrabold tracking-wide text-[color:var(--primary)] sm:text-6xl">
-              ACTUALIDAD
-            </h2>
-          </div>
-
-          <p className="max-w-xl text-sm leading-relaxed text-slate-500 sm:text-base">
+    <section className="relative w-full scroll-mt-24 bg-white" id="actualidad">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <Reveal>
+          <h2 className="text-balance text-3xl font-extrabold tracking-tight text-[color:var(--primary)] sm:text-5xl">
+            Actualidad
+          </h2>
+          <p className="mt-4 max-w-[65ch] text-sm leading-relaxed text-slate-500 sm:text-base">
             Revisa noticias, cambios regulatorios y oportunidades para optimizar
             tu plan de salud.
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Grid */}
         <motion.div
           variants={containerVariants}
-          initial={false}
+          initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
@@ -87,6 +85,7 @@ export default function ActualidadSection() {
           {news.map((item, idx) => (
             <motion.a
               key={idx}
+              variants={cardVariants}
               whileHover={{ y: -6 }}
               href={item.href}
               target="_blank"
@@ -99,10 +98,7 @@ export default function ActualidadSection() {
                 focus:outline-none focus:ring-4 focus:ring-[color:var(--accent)]/20
               "
             >
-              <div
-                className="relative overflow-hidden rounded-2xl bg-slate-100"
-                style={{ position: "relative", aspectRatio: "4 / 5" }}
-              >
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-100 sm:aspect-[4/5]">
                 <img
                   src={item.image}
                   alt={item.title}
@@ -126,11 +122,6 @@ export default function ActualidadSection() {
           ))}
         </motion.div>
 
-        <div className="absolute left-6 top-1/2 hidden -translate-y-1/2 flex-col gap-3 lg:flex">
-          <span className="h-2 w-2 rounded-full bg-slate-200" />
-          <span className="h-2 w-2 rounded-full bg-slate-300" />
-          <span className="h-2 w-2 rounded-full bg-slate-200" />
-        </div>
       </div>
     </section>
   );

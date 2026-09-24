@@ -133,7 +133,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
       w-full rounded-xl px-6 py-3.5
       bg-[color:var(--accent)] text-white font-semibold
       shadow-lg transition
-      hover:brightness-95
+      hover:brightness-95 active:scale-[0.98]
       focus:outline-none focus:ring-4 focus:ring-[color:var(--accent)]/30
       ${className}
     `}
@@ -243,6 +243,7 @@ const Cotizador = () => {
     correo: string;
     celular: string;
     previsionActual: string;
+    isapreInteres: string;
     ufActual: string;
     regionResidencia: string;
     cargas: string;
@@ -263,6 +264,7 @@ const Cotizador = () => {
     correo: "",
     celular: "",
     previsionActual: "",
+    isapreInteres: "",
     ufActual: "",
     regionResidencia: "",
     cargas: "",
@@ -308,7 +310,11 @@ const Cotizador = () => {
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error enviando correo:", error);
-      alert("No se pudo enviar el formulario. Intenta nuevamente.");
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "No se pudo enviar el formulario. Intenta nuevamente.";
+      alert(message);
     } finally {
       setIsSending(false);
     }
@@ -340,7 +346,7 @@ const Cotizador = () => {
     <section
       id="cotizador"
       className="
-        relative w-full
+        relative w-full scroll-mt-24
         bg-[url('/images/bg-cotizador-section.jpeg')] bg-cover bg-center bg-no-repeat
       "
     >
@@ -349,36 +355,43 @@ const Cotizador = () => {
       <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <motion.div
-            initial={false}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="hidden lg:block"
+            className="text-center lg:text-left"
           >
-            <h2 className="text-4xl font-extrabold tracking-wide text-white lg:text-5xl">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
               Cotiza en minutos
             </h2>
-            <p className="mt-4 max-w-xl text-lg text-white/80">
+            <p className="mx-auto mt-4 max-w-xl text-base text-white/85 sm:text-lg lg:mx-0">
               Completa el formulario y un ejecutivo te contactará con las
               mejores opciones según tu perfil.
             </p>
-            <ul className="mt-6 space-y-2 text-white/85">
-              <li>• 100% online</li>
-              <li>• Respuesta rápida</li>
-              <li>• Asesoría sin costo</li>
+            <ul className="mt-6 flex flex-wrap justify-center gap-2 text-sm text-white/90 lg:justify-start">
+              {["100% online", "Respuesta rápida", "Asesoría sin costo"].map(
+                (item) => (
+                  <li
+                    key={item}
+                    className="rounded-full bg-white/15 px-3 py-1 backdrop-blur"
+                  >
+                    {item}
+                  </li>
+                ),
+              )}
             </ul>
           </motion.div>
 
           <motion.div
-            initial={false}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="lg:justify-self-end w-full"
+            className="w-full lg:justify-self-end"
           >
             <div
               className="
-                w-full max-w-xl
+                mx-auto w-full max-w-xl lg:mx-0 lg:ml-auto
                 rounded-[1.75rem]
                 bg-[color:var(--primary)]/95
                 p-6 sm:p-8
@@ -522,6 +535,48 @@ const Cotizador = () => {
                                   {
                                     value: "sin-prevision",
                                     label: "Sin previsión",
+                                  },
+                                ]}
+                              />
+
+                              <SelectField
+                                label="Isapre de interés"
+                                name="isapreInteres"
+                                value={formData.isapreInteres}
+                                onChange={handleChange}
+                                required
+                                options={[
+                                  {
+                                    value: "isapre_banmedica",
+                                    label: "Isapre Banmédica",
+                                  },
+                                  {
+                                    value: "isapre_colmena",
+                                    label: "Isapre Colmena",
+                                  },
+                                  {
+                                    value: "isapre_consalud",
+                                    label: "Isapre Consalud",
+                                  },
+                                  {
+                                    value: "isapre_cruz_blanca",
+                                    label: "Isapre Cruz Blanca",
+                                  },
+                                  {
+                                    value: "isapre_esencial",
+                                    label: "Isapre Esencial",
+                                  },
+                                  {
+                                    value: "isapre_nueva_masvida",
+                                    label: "Isapre Nueva Masvida",
+                                  },
+                                  {
+                                    value: "isapre_vida_tres",
+                                    label: "Isapre Vida Tres",
+                                  },
+                                  {
+                                    value: "sin_preferencia",
+                                    label: "Aún no lo sé, quiero una recomendación",
                                   },
                                 ]}
                               />
@@ -744,7 +799,8 @@ const Cotizador = () => {
 
                   <p className="mx-auto mb-8 max-w-md text-white/80">
                     Un ejecutivo analizará tu perfil y te contactará con las
-                    mejores opciones.
+                    mejores opciones. También te enviamos un correo confirmando
+                    que recibimos tu solicitud.
                   </p>
 
                   <SecondaryButton onClick={resetForm} className="w-full">

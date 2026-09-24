@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
+import { Manrope } from "next/font/google";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import "./globals.css";
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-manrope",
+});
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://expertoensalud.cl";
 
@@ -56,12 +64,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <head>
-        <link rel="stylesheet" href="/styles.css" />
-      </head>
-      <body className="antialiased font-sans flex flex-col min-h-screen">
+    <html lang="es" className={manrope.variable}>
+      <body className="flex min-h-[100dvh] flex-col font-sans antialiased">
+        <a href="#contenido" className="skip-link">
+          Saltar al contenido
+        </a>
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );

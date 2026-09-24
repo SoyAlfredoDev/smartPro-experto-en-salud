@@ -1,13 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2f5d8c;
+  --color-secondary: #244a73;
+  --color-accent: #d9468c;
+  --color-foreground-on-primary: #ffffff;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
   --primary: #2f5d8c;
   --secondary: #244a73;
   --accent: #d9468c;
-  --light-gray: #f2f2f2;
-  --medium-gray: #cfcfcf;
+  --light-gray: #f4f7fb;
+  --medium-gray: #d5e0ea;
   --foreground-on-primary: #ffffff;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 80;
+  transform: translateY(-150%);
+  border-radius: 0.75rem;
+  background: var(--primary);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 body {
-  background-color: var(--light-gray);
+  background:
+    radial-gradient(circle at top left, rgb(47 93 140 / 0.08), transparent 32rem),
+    var(--light-gray);
   color: var(--secondary);
+}
+
+::selection {
+  background: rgb(217 70 140 / 0.22);
+  color: var(--secondary);
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
 }

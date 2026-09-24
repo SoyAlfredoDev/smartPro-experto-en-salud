@@ -15,7 +15,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "px-6 py-3 rounded-md font-semibold text-sm transition-colors duration-300";
+    "px-6 py-3 rounded-xl font-semibold text-sm transition-colors duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30";
 
   const variants = {
     primary: "bg-primary text-foreground-on-primary hover:bg-secondary",
